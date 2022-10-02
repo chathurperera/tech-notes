@@ -4,6 +4,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3500;
 const { logger } = require("./middleware/logger");
 const  errorHandler  = require("./middleware/errorHandler");
+const cookieParser = require('cookie-parser');
 app.use(logger);
 
 app.use(express.json());
