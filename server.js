@@ -12,6 +12,9 @@ app.use(logger);
 const connectDB = require("./config/dbConnect");
 const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
+
+const userRoutes = require('./routes/userRoutes')
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
@@ -23,6 +26,8 @@ connectDB();
 app.use("/", express.static("public"));
 
 app.use("/", require("./routes/root"));
+
+app.use('/users',)
 
 app.all("*", (req, res) => {
   res.status(404);
