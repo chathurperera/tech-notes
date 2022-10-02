@@ -8,7 +8,13 @@ const Note = require("../models/Note");
 // @route GET /users
 // @access private
 
-const getAllUsers = asyncHandler(async (req, res) => {});
+const getAllUsers = asyncHandler(async (req, res) => {
+    const users  = await User.find().select('-password').lean();
+    if(!users){
+        return res.status(400).json(message:'No Users Found')
+    }
+    res.json(users)
+});
 
 // @desc create user
 // @route POST /users
