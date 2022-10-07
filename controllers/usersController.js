@@ -29,6 +29,23 @@ const createNewUser = asyncHandler(async (req, res) => {
   }
 
   //Check for duplicate
+  const duplicate = await User.find({ username }).lean().exec();
+  if (duplicate) {
+    return res.status(409).json({ message: "Duplicate username" });
+  }
+
+  //Hashing the password
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const userObject = { username, password: hashedPassword, roles };
+
+  //create and store user
+  const user = await User.create({ userObject });
+
+  if (user) {
+    return res.status(201).json({ message: `New user ${username} created` });
+  } else {
+    return res.status(400).json({ message: "Invalid user data" });
+  }
 });
 
 // @desc update user
