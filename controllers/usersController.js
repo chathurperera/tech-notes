@@ -100,9 +100,9 @@ const deleteUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "user ID required" });
   }
 
-  const notes = await Note.findOne({ user: id }).lean().exec();
+  const note = await Note.findOne({ user: id }).lean().exec();
 
-  if (notes?.length) {
+  if (note) {
     return res.status(400).json({ message: "User has assigned notes" });
   }
 
